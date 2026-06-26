@@ -1,43 +1,35 @@
+/* ==========================================================================
+   CONFIGURAÇÃO DE TEMAS (Cores Inteligentes)
+   ========================================================================== */
 :root {
   /* Cores para o MODO CLARO */
-  --bg-color: #ffffff;
-  --text-color: #14171a;
-  --border-color: #e1e8ed;
-  --card-bg: #ffffff;
-  --twitter-blue: #1da1f2; /* Azul oficial do Twitter */
-  --title-color: #1da1f2;  /* No modo claro, o título será AZUL */
-}
-
-[data-theme="dark"] {
-  /* Cores para o MODO ESCURO */
-  --bg-color: #15202b;
-  --text-color: #ffffff;
-  --border-color: #38444d;
-  --card-bg: #192734;
-  --title-color: #ffffff;  /* No modo escuro, o título será BRANCO */
-}
-
-:root {
   --bg-color: #f0f2f5;
   --text-color: #0f1419;
   --card-bg: #ffffff;
-  --primary-color: #1d9bf0;
+  --primary-color: #1d9bf0;   /* Azul clássico do Twitter */
   --border-color: #eff3f4;
+  --title-color: #1d9bf0;     /* No modo claro, o título principal será AZUL */
 }
 
 body.dark {
+  /* Cores para o MODO ESCURO */
   --bg-color: #15202b;
   --text-color: #ffffff;
   --card-bg: #1e2732;
+  --primary-color: #1d9bf0;
   --border-color: #38444d;
+  --title-color: #ffffff;     /* No modo escuro, o título principal será BRANCO */
 }
 
+/* ==========================================================================
+   ESTILOS GERAIS
+   ========================================================================== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .app-container {
@@ -57,8 +49,15 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
-.navbar h1 { margin: 0; color: var(--primary-color); font-size: 1.5rem; }
+.navbar h1 { 
+  margin: 0; 
+  color: var(--primary-color); 
+  font-size: 1.5rem; 
+}
 
+/* ==========================================================================
+   BOTÕES
+   ========================================================================== */
 button {
   cursor: pointer;
   border: none;
@@ -67,23 +66,64 @@ button {
   font-weight: bold;
 }
 
-.theme-btn { background-color: var(--border-color); color: var(--text-color); }
-.logout-btn { background-color: #ff4d4d; color: white; }
+.theme-btn { 
+  background-color: var(--border-color); 
+  color: var(--text-color); 
+}
 
-/* Classes para o Feed que faremos no próximo passo */
+.logout-btn { 
+  background-color: #ff4d4d; 
+  color: white; 
+}
+
+.post-btn { 
+  background-color: var(--primary-color); 
+  color: white; 
+  float: right; 
+}
+
+/* ==========================================================================
+   POSTS E CRIAÇÃO DE POSTS
+   ========================================================================== */
 .post-card { 
   padding: 15px; 
   border-bottom: 1px solid var(--border-color); 
   background: var(--card-bg); 
-  text-align: left; /* Adicionamos isso para forçar o texto à esquerda! */
+  text-align: left; /* Garante alinhamento correto à esquerda */
 }
-.post-card h3 { margin: 0 0 10px 0; font-size: 1rem; }
-.post-content { margin: 0 0 10px 0; }
-.auth-box, .create-post-box { padding: 20px; border-bottom: 1px solid var(--border-color); background: var(--card-bg); }
-input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; border: 1px solid var(--border-color); border-radius: 5px; background: var(--bg-color); color: var(--text-color); }
-.post-btn { background-color: var(--primary-color); color: white; float: right; }
 
-/* Estilos para a tela de Login / Visitante */
+.post-card h3 { 
+  margin: 0 0 10px 0; 
+  font-size: 1rem; 
+}
+
+.post-content { 
+  margin: 0 0 10px 0; 
+}
+
+.create-post-box { 
+  padding: 20px; 
+  border-bottom: 1px solid var(--border-color); 
+  background: var(--card-bg); 
+}
+
+/* ==========================================================================
+   FORMULÁRIOS, INPUTS E TEXTAREAS
+   ========================================================================== */
+input, textarea { 
+  width: 100%; 
+  padding: 10px; 
+  margin-bottom: 10px; 
+  box-sizing: border-box; 
+  border: 1px solid var(--border-color); 
+  border-radius: 5px; 
+  background: var(--bg-color); 
+  color: var(--text-color); 
+}
+
+/* ==========================================================================
+   TELA DE AUTENTICAÇÃO / VISITANTE (AUTH-BOX)
+   ========================================================================== */
 .auth-box {
   max-width: 400px;
   margin: 50px auto !important;
@@ -92,9 +132,10 @@ input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: b
   border: 1px solid var(--border-color);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  color: var(--text-color); /* Força textos comuns a seguirem o tema */
 }
 
-/* O ajuste mágico da cor do título que você pediu: */
+/* Título principal: Azul no claro, Branco no escuro */
 .auth-box h2 {
   color: var(--title-color);
   font-size: 1.8rem;
@@ -102,13 +143,20 @@ input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: b
   font-weight: bold;
 }
 
+/* Subtítulos (Acesse sua conta): Preto no claro, Branco no escuro */
 .auth-box h3 {
   color: var(--text-color);
   font-size: 1.2rem;
   margin-bottom: 15px;
 }
 
-/* Deixar os inputs bonitos e combinando com o tema */
+/* Texto do "ou" do meio se adaptando */
+.auth-box div {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+/* Inputs da auth-box estilizados e legíveis */
 .auth-box input {
   width: 100%;
   padding: 10px;
@@ -118,4 +166,10 @@ input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: b
   background: var(--bg-color);
   color: var(--text-color);
   box-sizing: border-box;
+}
+
+/* Cor inteligente para o placeholder (texto de fundo do input) */
+.auth-box input::placeholder {
+  color: var(--text-color);
+  opacity: 0.5;
 }

@@ -3,15 +3,25 @@ import React from 'react';
 function Post({ post, onLike, isUserLogged }) {
   return (
     <div className="post-card">
-      <h3 className="post-author">@{post.author}</h3>
+      <h3>@{post.author}</h3>
       <p className="post-content">{post.content}</p>
       
+      {/* Botão de Curtir */}
       <button 
-        onClick={() => onLike(post.id)}
-        className="theme-btn"
-        disabled={!isUserLogged} // Só deixa curtir se estiver logado (Requisito da prova!)
+        onClick={() => onLike(post.id)} 
+        style={{
+          background: 'transparent',
+          fontSize: '1.1rem',
+          padding: '5px 10px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px',
+          color: post.likedByMe ? '#e0245e' : 'var(--text-color)',
+          cursor: 'pointer'
+        }}
       >
-        {post.likedByMe ? '❤️' : '🤍'} {post.likes}
+        <span>{post.likedByMe ? '❤️' : '🖤'}</span>
+        <span>{post.likes}</span>
       </button>
     </div>
   );
