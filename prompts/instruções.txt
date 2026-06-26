@@ -1,0 +1,14 @@
+1 - (Solicitado por Maria Clara) Na tela inicial nao deve aparecer ja de cara as publcações, deve ter um botao "entrar sem login" e aí sim aparecer as publicações
+
+Excelente ideia! Essa lógica fica muito boa para a experiência do usuário.
+
+Para que a tela comece apenas com as opções de Fazer Login ou Entrar sem Login (como visitante), e só libere o feed depois que uma das duas ações acontecer, vamos precisar criar um novo estado de controle.
+
+Siga estes passos para ajustar o comportamento:
+
+Passo 1: Atualizar o arquivo src/pages/Home.jsx
+Abra o src/pages/Home.jsx, apague o código atual e substitua por este que adiciona o modo "visitante":
+
+JavaScript
+
+2- 
