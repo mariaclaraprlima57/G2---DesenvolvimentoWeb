@@ -1,15 +1,29 @@
 const userModel = require("../models/userModel");
 const authService = require("../services/authService");
+const validator = require("../utils/validador");
 
 // Cadastro de usuário
+
 const register = async (req, res) => {
     try {
+
         const { username, password } = req.body;
 
-        // Validação básica
-        if (!username || !password) {
+        // Validação do usuário
+        const usernameValidation = validator.validarUsername(username);
+
+        if (!usernameValidation.valido) {
             return res.status(400).json({
-                message: "Usuário e senha são obrigatórios."
+                message: usernameValidation.mensagem
+            });
+        }
+
+        // Validação da senha
+        const passwordValidation = validator.validarPassword(password);
+
+        if (!passwordValidation.valido) {
+            return res.status(400).json({
+                message: passwordValidation.mensagem
             });
         }
 
@@ -25,13 +39,13 @@ const register = async (req, res) => {
         // Criptografa a senha
         const hashedPassword = await authService.hashPassword(password);
 
-        // Cria o usuário
+        // Salva no banco
         const newUser = await userModel.createUser(
             username,
             hashedPassword
         );
 
-        res.status(201).json({
+        return res.status(201).json({
             message: "Usuário cadastrado com sucesso.",
             user: {
                 id: newUser.id,
@@ -40,23 +54,38 @@ const register = async (req, res) => {
         });
 
     } catch (error) {
+
         console.error(error);
 
-        res.status(500).json({
+        return res.status(500).json({
             message: "Erro interno do servidor."
         });
+
     }
 };
 
 // Login
+
 const login = async (req, res) => {
+
     try {
 
         const { username, password } = req.body;
 
-        if (!username || !password) {
+        // Validação
+        const usernameValidation = validator.validarUsername(username);
+
+        if (!usernameValidation.valido) {
             return res.status(400).json({
-                message: "Usuário e senha são obrigatórios."
+                message: usernameValidation.mensagem
+            });
+        }
+
+        const passwordValidation = validator.validarPassword(password);
+
+        if (!passwordValidation.valido) {
+            return res.status(400).json({
+                message: passwordValidation.mensagem
             });
         }
 
@@ -70,12 +99,12 @@ const login = async (req, res) => {
         }
 
         // Compara senha
-        const validPassword = await authService.comparePassword(
+        const passwordMatch = await authService.comparePassword(
             password,
             user.password
         );
 
-        if (!validPassword) {
+        if (!passwordMatch) {
             return res.status(401).json({
                 message: "Usuário ou senha inválidos."
             });
@@ -84,7 +113,7 @@ const login = async (req, res) => {
         // Gera token
         const token = authService.generateToken(user);
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Login realizado com sucesso.",
             token,
             user: {
@@ -97,14 +126,25 @@ const login = async (req, res) => {
 
         console.error(error);
 
-        res.status(500).json({
+        return res.status(500).json({
             message: "Erro interno do servidor."
         });
 
     }
 };
 
+
+// Logout 
+const logout = (req, res) => {
+
+    return res.status(200).json({
+        message: "Logout realizado com sucesso."
+    });
+
+};
+
 module.exports = {
     register,
-    login
+    login,
+    logout
 };

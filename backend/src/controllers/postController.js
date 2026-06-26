@@ -1,60 +1,68 @@
 const postModel = require("../models/postModel");
 const favoriteModel = require("../models/favoriteModel");
+const validator = require("../utils/validador");
 
 // Listar todos os posts
 const getPosts = async (req, res) => {
+
     try {
 
         const posts = await postModel.getAllPosts();
 
-        res.status(200).json(posts);
+        return res.status(200).json(posts);
 
     } catch (error) {
 
         console.error(error);
 
-        res.status(500).json({
+        return res.status(500).json({
             message: "Erro ao listar os posts."
         });
 
     }
+
 };
 
-// Criar um novo post
+// Criar novo post
 const createPost = async (req, res) => {
 
     try {
 
         const { content } = req.body;
 
-        const userId = req.user.id;
+        const validation = validator.validarPost(content);
 
-        if (!content || content.trim() === "") {
+        if (!validation.valido) {
             return res.status(400).json({
-                message: "Digite algum conteúdo."
+                message: validation.mensagem
             });
         }
 
-        const post = await postModel.createPost(content, userId);
+        const userId = req.user.id;
 
-        res.status(201).json({
+        const newPost = await postModel.createPost(
+            content,
+            userId
+        );
+
+        return res.status(201).json({
             message: "Post publicado com sucesso.",
-            post
+            post: newPost
         });
 
     } catch (error) {
 
         console.error(error);
 
-        res.status(500).json({
-            message: "Erro ao criar post."
+        return res.status(500).json({
+            message: "Erro ao criar o post."
         });
 
     }
 
 };
 
-// Curtir ou descurtir (toggle)
+// Curtir / Descurtir
 const toggleFavorite = async (req, res) => {
 
     try {
@@ -66,15 +74,18 @@ const toggleFavorite = async (req, res) => {
         const post = await postModel.findPostById(postId);
 
         if (!post) {
+
             return res.status(404).json({
                 message: "Post não encontrado."
             });
+
         }
 
-        const alreadyFavorited = await favoriteModel.hasFavorited(
-            userId,
-            postId
-        );
+        const alreadyFavorited =
+            await favoriteModel.hasFavorited(
+                userId,
+                postId
+            );
 
         if (alreadyFavorited) {
 
@@ -83,8 +94,12 @@ const toggleFavorite = async (req, res) => {
                 postId
             );
 
+            const totalLikes =
+                await favoriteModel.countFavorites(postId);
+
             return res.status(200).json({
-                message: "Curtida removida."
+                message: "Curtida removida.",
+                likes: totalLikes
             });
 
         }
@@ -94,16 +109,20 @@ const toggleFavorite = async (req, res) => {
             postId
         );
 
-        res.status(201).json({
-            message: "Post curtido."
+        const totalLikes =
+            await favoriteModel.countFavorites(postId);
+
+        return res.status(201).json({
+            message: "Post curtido.",
+            likes: totalLikes
         });
 
     } catch (error) {
 
         console.error(error);
 
-        res.status(500).json({
-            message: "Erro ao curtir post."
+        return res.status(500).json({
+            message: "Erro ao atualizar curtida."
         });
 
     }
