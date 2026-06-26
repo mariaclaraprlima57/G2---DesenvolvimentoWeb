@@ -126,7 +126,6 @@ function Home({ user, setUser }) {
       console.warn("Servidor offline ou rota de posts não configurada. Aplicando fallback local.");
     }
 
-    // 🚀 FALLBACK LOCAL: Se a API falhar/rejeitar, publica na tela do mesmo jeito para a sua apresentação rodar lisa!
     const localPost = { 
       id: Date.now(), 
       author: authorName, 
@@ -137,7 +136,6 @@ function Home({ user, setUser }) {
     setPosts([localPost, ...posts]);
     setNewPostContent('');
   };
-  // 5. Lógica de Curtir Real (toggleFavorite)
  // Lógica de Curtir Robusta (Tenta o Banco Real, se falhar aplica o Fallback do Front)
   const toggleLike = async (postId) => {
     // 1. Bloqueia se o estado do usuário não estiver preenchido
@@ -208,7 +206,7 @@ function Home({ user, setUser }) {
             <h3 style={{ color: 'var(--primary-color)' }}>Crie sua nova conta</h3>
             <input type="text" placeholder="Escolha um Usuário" value={usernameInput} onChange={(e) => setUsernameInput(e.target.value)} required />
             <input type="password" placeholder="Escolha uma Senha" value={passwordInput} onChange={(e) => setPasswordInput(e.target.value)} required />
-            <button type="submit" className="post-btn" style={{ float: 'none', width: '100%', backgroundColor: '#2ecc71' }}>Confirmar Cadastro ✨</button>
+            <button type="submit" className="post-btn" style={{ float: 'none', width: '100%', backgroundColor: '#2ecc71' }}>Confirmar Cadastro</button>
           </form>
         )}
 
@@ -219,7 +217,7 @@ function Home({ user, setUser }) {
           className="theme-btn" 
           style={{ width: '100%', padding: '12px', borderRadius: '20px', marginBottom: '10px' }}
         >
-          🌐 Entrar sem login (Modo Visitante)
+          Entrar sem login (Modo Visitante)
         </button>
 
         {/* Altera o botão de baixo para permitir o usuário ir e voltar */}
@@ -228,7 +226,7 @@ function Home({ user, setUser }) {
           className="theme-btn" 
           style={{ width: '100%', padding: '12px', borderRadius: '20px', background: 'transparent', border: '1px solid var(--primary-color)', color: 'var(--primary-color)' }}
         >
-          {isRegisterMode ? "⬅️ Voltar para o Login" : "✨ Criar nova conta"}
+          {isRegisterMode ? "⬅️ Voltar para o Login" : "Criar nova conta"}
         </button>
       </div>
     );
