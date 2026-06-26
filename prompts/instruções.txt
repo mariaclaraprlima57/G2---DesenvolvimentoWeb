@@ -11,4 +11,24 @@ Abra o src/pages/Home.jsx, apague o código atual e substitua por este que adici
 
 JavaScript
 
-2- 
+2 - (Solicitado por Joaby)
+
+Desenvolvimento do backend de uma aplicação utilizando Node.js, Express e SQLite3.
+
+O banco de dados usado foi SQLite3, sendo inicializado automaticamente quando o servidor backend foi executado.
+
+Organização do projeto em uma estrutura bem definida contendo:
+
+* config
+* controllers
+* models
+* routes
+* services
+* middleware
+* utils
+
+Orientações em como criar as rotas para autenticação de usuários e gerenciamento de publicações, separando corretamente controllers, services e models.
+
+Implementado autenticação utilizando JWT, criptografia de senhas com bcrypt e um middleware para proteger as rotas privadas.
+
+
