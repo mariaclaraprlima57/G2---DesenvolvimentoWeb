@@ -2,47 +2,53 @@
 
 Projeto desenvolvido para a disciplina de Desenvolvimento de Software para Web.
 
-Uma rede social inspirada no Twitter, permitindo autenticação de usuários, publicação de posts e sistema de curtidas.
+O Echo é uma rede social inspirada no Twitter (X), permitindo autenticação de usuários, publicação de posts e interação através de curtidas.
 
+---
 
-#👥 Integrantes
+# 👥 Integrantes
 
 - Maria Clara Pereira Lima
 - Joaby Henrique
 
-## 🛠 Tecnologias Utilizadas
+---
 
-### Front-end
+# 📚 Tecnologias Utilizadas
+
+## Front-end
 
 - React
 - Vite
 - React Router DOM
 - Axios
+- CSS
 
-### Back-end
+## Back-end
 
 - Node.js
 - Express
+- JWT
+- Bcrypt
 
-### Banco de Dados
+## Banco de Dados
 
 - SQLite3
 
-### Autenticação
-
-- JWT (JSON Web Token)
-- Bcrypt
-
 ---
 
-## 📁 Estrutura do Projeto
+# 📁 Estrutura do Projeto
 
 ```
 Echo/
 │
 ├── backend/
+│   ├── src/
+│   ├── server.js
+│   └── package.json
 │
 ├── frontend/
+│   ├── src/
+│   └── package.json
 │
 ├── prompts/
 │
@@ -51,9 +57,23 @@ Echo/
 
 ---
 
-## 🚀 Como executar
+# 🚀 Como executar o projeto
 
-### Backend
+## 1 - Clonar o repositório
+
+```bash
+git clone https://github.com/mariaclaraprlima57/G2---DesenvolvimentoWeb.git
+```
+
+Entre na pasta
+
+```bash
+cd G2---DesenvolvimentoWeb
+```
+
+---
+
+# Executando o Back-end
 
 Entre na pasta
 
@@ -81,7 +101,9 @@ http://localhost:3000
 
 ---
 
-### Frontend
+# Executando o Front-end
+
+Abra outro terminal.
 
 Entre na pasta
 
@@ -109,82 +131,121 @@ http://localhost:5173
 
 ---
 
-## 🗄 Banco de Dados
+# 🗄 Banco de Dados
 
-Banco utilizado:
+O projeto utiliza SQLite3.
 
-SQLite3
+O banco de dados é criado automaticamente na primeira execução.
 
-O banco é criado automaticamente na primeira execução da aplicação.
+Arquivo:
+
+```
+backend/src/database/echo.db
+```
 
 ---
 
-## Funcionalidades
+# 🔐 Funcionalidades
 
-### Autenticação
+## Usuário não autenticado
 
-- Cadastro de usuário
+- Visualizar publicações
+
+## Usuário autenticado
+
+- Cadastro
 - Login
 - Logout
-- Senha criptografada com Bcrypt
+- Criar publicações
+- Curtir publicações
+- Remover curtidas
 
 ---
 
-### Posts
+# 🛡 Segurança
 
-- Visualizar posts
-- Criar posts
-- Listagem pública
-
----
-
-### Curtidas
-
-- Curtir posts
-- Descurtir posts
+- Senhas criptografadas utilizando Bcrypt.
+- Autenticação utilizando JWT.
+- Rotas protegidas por Middleware.
 
 ---
 
-### Usuário não autenticado
+# 📂 Estrutura do Back-end
 
-Pode:
+```
+backend/
+│
+├── src/
+│   ├── config/
+│   ├── controllers/
+│   ├── database/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   └── utils/
+│
+├── server.js
+└── package.json
+```
 
-- Visualizar todos os posts
+## Organização das pastas
+
+### config
+
+Responsável pela configuração do banco de dados.
+
+### controllers
+
+Recebem as requisições HTTP e chamam os serviços.
+
+### middleware
+
+Contém o middleware responsável pela autenticação JWT.
+
+### models
+
+Realizam operações diretamente no banco de dados.
+
+### routes
+
+Definem as rotas da API.
+
+### services
+
+Implementam as regras de negócio.
+
+### utils
+
+Funções auxiliares, como validações.
 
 ---
 
-### Usuário autenticado
+# 🎨 Diferenciais
 
-Pode:
-
-- Publicar novos posts
-- Curtir
-- Descurtir
-- Fazer logout
-
----
-
-## ⭐ Feature Extra
-
-- Tema Claro / Escuro
+- Interface inspirada no Twitter (X)
+- Tema Claro/Escuro
 - Contador de caracteres
-- Interface personalizada inspirada no Twitter
+- Layout responsivo
+- Navegação intuitiva
 
 ---
 
-## 🎨 Identidade Visual
+# 🤖 Uso de Inteligência Artificial
 
-O projeto utiliza identidade visual própria inspirada em redes sociais modernas, buscando uma interface limpa, intuitiva e responsiva.
+Durante o desenvolvimento foram utilizados modelos de IA para:
 
----
+- geração de componentes React;
+- organização da estrutura do projeto;
+- criação de estilos CSS;
+- auxílio na implementação da autenticação JWT;
+- correção de erros;
+- documentação.
 
-## Prompts
-
-Os prompts utilizados durante o desenvolvimento encontram-se na pasta
+Todos os principais prompts utilizados encontram-se na pasta:
 
 ```
 prompts/
 ```
 
-
-
+---
