@@ -14,7 +14,7 @@ function App() {
   return (
     <div className={`app-container ${theme}`}>
       <header className="navbar">
-        <h1>MiniTwitter</h1>
+        <h1>Twitter</h1>
         <div>
           <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="theme-btn">
             {theme === 'light' ? '🌙 Escuro' : '☀️ Claro'}
